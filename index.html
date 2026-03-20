@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fullface Academy — Medios de Pago</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --rose:     #e07b7b;
+  --rose-l:   #f0a8a8;
+  --rose-pale: #f9e8e8;
+  --rose-btn: #e88a8a;
+  --cream:    #fdf8f5;
+  --cream2:   #f5ede8;
+  --dark:     #2a1f1f;
+  --mid:      #5a4444;
+  --light-txt:#9a7e7e;
+  --border:   rgba(180,120,120,.18);
+  --gold:     #b5956a;
+}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  background:var(--cream);
+  color:var(--dark);
+  font-family:'Raleway',sans-serif;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(253,248,245,.97);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;height:64px;
+  transition:box-shadow .3s;
+}
+nav.shadow{box-shadow:0 2px 20px rgba(180,100,100,.08);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-circle{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--rose);
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--rose-l);
+  flex-shrink:0;
+}
+.nav-logo-ff{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-weight:500;color:#fff;
+  letter-spacing:-1px;
+}
+.nav-logo-text{
+  display:flex;flex-direction:column;
+  font-family:'Cormorant Garamond',serif;
+}
+.nav-logo-name{font-size:16px;font-weight:500;letter-spacing:3px;color:var(--dark);text-transform:uppercase;}
+.nav-logo-sub{font-size:7px;letter-spacing:5px;color:var(--light-txt);text-transform:uppercase;font-family:'Raleway',sans-serif;font-weight:300;}
+.nav-links{display:flex;align-items:center;gap:6px;}
+.nav-pill{
+  display:inline-flex;align-items:center;
+  padding:9px 22px;
+  border:1.5px solid var(--border);
+  background:transparent;
+  color:var(--mid);text-decoration:none;
+  font-size:8.5px;letter-spacing:3.5px;text-transform:uppercase;font-weight:400;
+  font-family:'Raleway',sans-serif;
+  transition:background .25s,border-color .25s,color .25s,box-shadow .25s;
+  white-space:nowrap;
+  border-radius:50px;
+}
+.nav-pill:hover{border-color:rgba(224,123,123,.4);color:var(--rose);background:var(--rose-pale);}
+.nav-pill.active{background:var(--rose);border-color:var(--rose);color:#fff;box-shadow:0 2px 12px rgba(224,123,123,.25);}
+.nav-btn{
+  background:var(--rose-btn);color:#fff;
+  font-size:8.5px;letter-spacing:3px;text-transform:uppercase;font-weight:400;
+  border:none;cursor:pointer;padding:10px 22px;
+  font-family:'Raleway',sans-serif;
+  transition:background .25s,transform .2s;border-radius:50px;
+}
+.nav-btn:hover{background:var(--rose);transform:translateY(-1px);}
+.lang-toggle{
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--light-txt);background:none;border:1px solid var(--border);
+  padding:6px 14px;cursor:pointer;font-family:'Raleway',sans-serif;
+  transition:border-color .25s,color .25s;border-radius:50px;
+}
+.lang-toggle:hover{border-color:var(--rose);color:var(--rose);}
+
+/* ── HERO ── */
+.hero{
+  position:relative;width:100%;height:100vh;min-height:600px;
+  display:flex;align-items:flex-end;justify-content:center;
+  overflow:hidden;background:#1a0f0f;
+}
+.hero-video{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  z-index:0;
+}
+to{transform:scale(1.05)}}
+.hero-fade{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(
+    to bottom,
+    rgba(26,15,15,.22)  0%,
+    rgba(26,15,15,.08) 25%,
+    rgba(26,15,15,.42) 55%,
+    rgba(26,15,15,.88) 80%,
+    #1a0f0f 100%
+  );
+  backdrop-filter:blur(4px) saturate(.75);
+  -webkit-backdrop-filter:blur(4px) saturate(.75);
+}
+.hero-content{
+  position:relative;z-index:2;
+  display:flex;align-items:flex-end;justify-content:center;
+  width:100%;padding-bottom:52px;
+  opacity:0;animation:up .9s ease 1s forwards;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(16px) saturate(1.2);
+  -webkit-backdrop-filter:blur(16px) saturate(1.2);
+  border:1px solid rgba(255,255,255,.22);
+  color:#fff;text-decoration:none;
+  font-size:9px;letter-spacing:5px;text-transform:uppercase;font-weight:400;
+  font-family:'Raleway',sans-serif;
+  padding:14px 28px;border-radius:50px;
+  transition:background .3s,border-color .3s,transform .25s;
+}
+.hero-badge:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.35);transform:translateY(-2px);}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SECTION ── */
+.section{
+  padding:88px 24px;
+  max-width:720px;margin:0 auto;
+}
+.sec-label{
+  font-size:8px;letter-spacing:7px;text-transform:uppercase;
+  font-weight:400;color:var(--rose);text-align:center;margin-bottom:14px;
+}
+.sec-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(34px,5.5vw,60px);font-weight:300;
+  text-align:center;line-height:1.0;color:var(--dark);
+  margin-bottom:12px;
+}
+.sec-title em{font-style:italic;color:var(--rose);}
+.sec-rule{
+  width:36px;height:1px;background:var(--rose);opacity:.5;
+  margin:0 auto 52px;
+}
+
+/* ── PAYMENT SECTION BG ── */
+#pagos{background:var(--cream);}
+
+/* ── PAYMENT GRID ── */
+.pay-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+}
+.pay-card{
+  background:#fff;
+  border:1px solid var(--border);
+  cursor:pointer;
+  overflow:hidden;
+  opacity:0;transform:translateY(14px);
+  transition:border-color .3s,box-shadow .3s;
+}
+.pay-card.visible{animation:cin .55s ease forwards;}
+@keyframes cin{to{opacity:1;transform:translateY(0)}}
+.pay-card:hover{border-color:rgba(224,123,123,.3);box-shadow:0 4px 24px rgba(224,123,123,.07);}
+.pay-card.open{border-color:rgba(224,123,123,.45);box-shadow:0 6px 30px rgba(224,123,123,.1);}
+
+.card-head{
+  padding:22px 20px 18px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+}
+.card-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:400;line-height:1;
+  color:var(--dark);margin-bottom:9px;
+}
+.card-tag{
+  display:inline-block;
+  font-size:7px;letter-spacing:3px;text-transform:uppercase;font-weight:400;
+  padding:3px 9px;border:1px solid var(--border);color:var(--light-txt);
+  font-family:'Raleway',sans-serif;
+}
+.card-tag.nacional{border-color:rgba(181,149,106,.35);color:var(--gold);}
+.card-tag.inter{border-color:rgba(224,123,123,.3);color:var(--rose);}
+.card-tag.link-p{border-color:rgba(100,170,160,.3);color:#5aaca4;}
+.card-arrow{
+  flex-shrink:0;width:28px;height:28px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .38s cubic-bezier(.4,0,.2,1),border-color .3s,background .3s;
+}
+.pay-card.open .card-arrow{
+  transform:rotate(180deg);
+  border-color:var(--rose-l);background:var(--rose-pale);
+}
+.card-arrow svg{width:11px;color:var(--mid);}
+
+/* Expand */
+.card-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .42s cubic-bezier(.4,0,.2,1);}
+.pay-card.open .card-body{grid-template-rows:1fr;}
+.card-body-in{overflow:hidden;}
+.card-fields{
+  padding:0 20px 20px;
+  display:flex;flex-direction:column;gap:2px;
+  border-top:1px solid var(--border);padding-top:16px;
+}
+
+/* Field */
+.field{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 11px;
+  background:var(--cream);border:1px solid transparent;
+  cursor:pointer;transition:background .22s,border-color .22s;
+}
+.field:hover{background:var(--cream2);border-color:var(--border);}
+.field-readonly{cursor:default;}
+.field-readonly:hover{background:var(--cream);border-color:transparent;}
+.field-info{flex:1;min-width:0;}
+.field-lbl{
+  font-size:7px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--light-txt);font-weight:400;margin-bottom:3px;
+}
+.field-val{
+  font-size:12.5px;color:var(--dark);font-weight:300;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-family:'Raleway',sans-serif;
+}
+.field-copy{
+  flex-shrink:0;color:var(--light-txt);transition:color .22s;
+  display:flex;
+}
+.field:hover .field-copy{color:var(--rose);}
+.field.copied .field-copy{color:#5aaca4;}
+.field-copy svg{width:12px;height:12px;}
+
+/* CTA button in card */
+.card-cta{
+  margin-top:8px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 18px;
+  background:var(--rose-btn);color:#fff;
+  text-decoration:none;font-size:8px;letter-spacing:4px;text-transform:uppercase;
+  font-weight:400;font-family:'Raleway',sans-serif;
+  transition:background .25s,transform .2s;cursor:pointer;border:none;
+  border-radius:50px;
+}
+.card-cta:hover{background:var(--rose);transform:translateY(-1px);}
+.card-cta svg{width:12px;flex-shrink:0;}
+
+/* Note */
+.field-note{
+  font-size:10px;color:var(--light-txt);line-height:1.65;
+  padding:8px 0 2px;font-weight:300;font-style:italic;
+}
+
+/* ── Q&A ── */
+#qa{background:var(--cream2);}
+.qa-item{
+  border-bottom:1px solid var(--border);
+  opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s;
+}
+.qa-item.visible{opacity:1;transform:translateY(0);}
+.qa-q{
+  padding:20px 0;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  cursor:pointer;
+}
+.qa-q-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-weight:400;line-height:1.2;
+  color:var(--dark);transition:color .25s;
+}
+.qa-item.open .qa-q-text{color:var(--rose);}
+.qa-icon{
+  flex-shrink:0;width:22px;height:22px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .35s ease,border-color .3s,background .3s;
+}
+.qa-item.open .qa-icon{
+  transform:rotate(45deg);
+  border-color:var(--rose-l);background:var(--rose-pale);
+}
+.qa-icon svg{width:10px;color:var(--mid);}
+.qa-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s cubic-bezier(.4,0,.2,1);}
+.qa-item.open .qa-a{grid-template-rows:1fr;}
+.qa-a-inner{overflow:hidden;}
+.qa-a-text{
+  padding:0 0 20px;
+  font-size:13px;line-height:1.85;font-weight:300;
+  color:var(--mid);
+}
+.qa-a-text strong{font-weight:400;color:var(--dark);}
+
+/* ── FOOTER ── */
+footer{
+  background:#1a0f0f;
+  padding:36px 24px;
+  text-align:center;
+  font-size:8px;letter-spacing:5px;text-transform:uppercase;
+  color:rgba(255,255,255,.2);font-weight:300;font-family:'Raleway',sans-serif;
+}
+
+/* ── WA FLOAT ── */
+.wa-wrap{
+  position:fixed;bottom:26px;right:22px;z-index:300;
+  display:flex;align-items:center;
+  animation:wapop .65s cubic-bezier(.34,1.56,.64,1) 1.6s both;
+}
+@keyframes wapop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+.wa-tip{
+  background:rgba(253,248,245,.95);backdrop-filter:blur(10px);
+  border:1px solid var(--border);border-right:none;
+  padding:9px 13px 9px 15px;
+  font-size:8px;letter-spacing:3px;text-transform:uppercase;font-weight:400;
+  color:var(--mid);white-space:nowrap;
+  transform:translateX(6px);opacity:0;
+  transition:transform .3s,opacity .3s;pointer-events:none;
+}
+.wa-wrap:hover .wa-tip{transform:translateX(0);opacity:1;}
+.wa-btn{
+  width:50px;height:50px;border-radius:50%;background:#25D366;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(37,211,102,.28);
+  transition:transform .3s,box-shadow .3s;
+}
+.wa-wrap:hover .wa-btn{transform:scale(1.08);box-shadow:0 8px 28px rgba(37,211,102,.42);}
+.wa-pulse{
+  position:fixed;bottom:26px;right:22px;
+  width:50px;height:50px;border-radius:50%;
+  background:rgba(37,211,102,.15);
+  animation:pulse 2.8s ease-out infinite;
+  pointer-events:none;z-index:299;
+}
+@keyframes pulse{0%{transform:scale(1);opacity:.5}100%{transform:scale(2.1);opacity:0}}
+
+/* reveal base */
+[data-reveal]{opacity:0;transform:translateY(14px);transition:opacity .65s ease,transform .65s ease;}
+[data-reveal].on{opacity:1;transform:translateY(0);}
+
+
+
+/* ── LANG STRINGS ── */
+.lang-en{display:none;}
+body.en .lang-es{display:none;}
+body.en .lang-en{display:block;}
+span.lang-en{display:none;}
+body.en span.lang-es{display:none;}
+body.en span.lang-en{display:inline;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="https://fullface.co/academia/" class="nav-logo" target="_blank">
+    <div class="nav-logo-circle">
+      <span class="nav-logo-ff">FF</span>
+    </div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Fullface</span>
+      <span class="nav-logo-sub">Academy</span>
+    </div>
+  </a>
+
+  <div class="nav-links">
+    <a href="#pagos" class="nav-pill active" id="nav-pagos">
+      <span class="lang-es">Medios de pago</span>
+      <span class="lang-en">Payment methods</span>
+    </a>
+    <a href="#qa" class="nav-pill" id="nav-qa">
+      <span class="lang-es">Preguntas</span>
+      <span class="lang-en">FAQ</span>
+    </a>
+    <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">EN</button>
+    <a href="https://wa.me/573197900732?text=Hola%20FullFace%20Academy%2C%20quiero%20informaci%C3%B3n" target="_blank" class="nav-btn">
+      <span class="lang-es">Contactar</span>
+      <span class="lang-en">Contact</span>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <video class="hero-video" src="Media/intro-ff-academy.mp4" autoplay muted loop playsinline></video>
+  <div class="hero-fade"></div>
+  <div class="hero-content">
+    <a href="#pagos" class="hero-badge">
+      <span class="lang-es">Medios de pago</span>
+      <span class="lang-en">Payment methods</span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+    </a>
+  </div>
+</section>
+
+
+<!-- MEDIOS DE PAGO -->
+<section id="pagos" style="background:var(--cream);padding:88px 0;">
+  <div style="max-width:720px;margin:0 auto;padding:0 24px;">
+    <p class="sec-label" data-reveal>
+      <span class="lang-es">Elige cómo pagar</span>
+      <span class="lang-en">Choose how to pay</span>
+    </p>
+    <h2 class="sec-title" data-reveal>
+      <span class="lang-es">Medios de <em>Pago</em></span>
+      <span class="lang-en">Payment <em>Methods</em></span>
+    </h2>
+    <div class="sec-rule" data-reveal></div>
+  </div>
+
+  <div class="pay-grid" style="max-width:720px;margin:0 auto;padding:0 24px;">
+
+    <!-- BANCOLOMBIA -->
+    <div class="pay-card" data-d="0" onclick="toggleCard(this)">
+      <div class="card-head">
+        <div>
+          <div class="card-name">Bancolombia</div>
+          <span class="card-tag nacional">
+            <span class="lang-es">Nacional · COP</span>
+            <span class="lang-en">Domestic · COP</span>
+          </span>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+        </div>
+      </div>
+      <div class="card-body"><div class="card-body-in">
+        <div class="card-fields">
+          <div class="field field-readonly">
+            <div class="field-info">
+              <div class="field-lbl"><span class="lang-es">Empresa</span><span class="lang-en">Company</span></div>
+              <div class="field-val">Fullface SAS</div>
+            </div>
+          </div>
+          <div class="field" onclick="copy(event,this,'901830490')">
+            <div class="field-info">
+              <div class="field-lbl">NIT</div>
+              <div class="field-val">901.830.490</div>
+            </div>
+            <span class="field-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="1"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>
+          </div>
+          <div class="field field-readonly">
+            <div class="field-info">
+              <div class="field-lbl"><span class="lang-es">Tipo de cuenta</span><span class="lang-en">Account type</span></div>
+              <div class="field-val"><span class="lang-es">Ahorros</span><span class="lang-en">Savings</span></div>
+            </div>
+          </div>
+          <div class="field" onclick="copy(event,this,'37900007930')">
+            <div class="field-info">
+              <div class="field-lbl"><span class="lang-es">Número de cuenta</span><span class="lang-en">Account number</span></div>
+              <div class="field-val">37900007930</div>
+            </div>
+            <span class="field-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="1"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>
+          </div>
+          <p class="field-note">
+            <span class="lang-es">⚠️ Avísanos antes de pagar para confirmar disponibilidad de cupos.</span>
+            <span class="lang-en">⚠️ Please notify us before paying to confirm spot availability.</span>
+          </p>
+          <a class="card-cta" href="https://wa.me/573197900732?text=Hola%20FullFace%20Academy%2C%20voy%20a%20realizar%20un%20pago%20por%20Bancolombia%20y%20quiero%20confirmar%20disponibilidad%20de%20cupos." target="_blank" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <span class="lang-es">Avisar antes de pagar</span>
+            <span class="lang-en">Notify before paying</span>
+          </a>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- TRUIST BANK -->
+    <div class="pay-card" data-d="100" onclick="toggleCard(this)">
+      <div class="card-head">
+        <div>
+          <div class="card-name">Truist Bank</div>
+          <span class="card-tag inter">Internacional · USD 🇺🇸</span>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+        </div>
+      </div>
+      <div class="card-body"><div class="card-body-in">
+        <div class="card-fields">
+          <div class="field" onclick="copy(event,this,'FULLFACE INVESTMENTS LLC')">
+            <div class="field-info">
+              <div class="field-lbl"><span class="lang-es">Titular</span><span class="lang-en">Account owner</span></div>
+              <div class="field-val">FULLFACE INVESTMENTS LLC</div>
+            </div>
+            <span class="field-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="1"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>
+          </div>
+          <div class="field" onclick="copy(event,this,'BRBTUS33XXX')">
+            <div class="field-info">
+              <div class="field-lbl">SWIFT / BIC</div>
+              <div class="field-val">BRBTUS33XXX</div>
+            </div>
+            <span class="field-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="1"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>
+          </div>
+          <div class="field" onclick="copy(event,this,'1100024647674')">
+            <div class="field-info">
+              <div class="field-lbl">Account Number</div>
+              <div class="field-val">1100024647674</div>
+            </div>
+            <span class="field-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="1"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>
+          </div>
+          <div class="field" onclick="copy(event,this,'263191387')">
+            <div class="field-info">
+              <div class="field-lbl">Routing Number</div>
+              <div class="field-val">263191387</div>
+            </div>
+            <span class="field-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="1"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>
+          </div>
+          <div class="field" onclick="copy(event,this,'214 NORTH TRYON STREET')">
+            <div class="field-info">
+              <div class="field-lbl">Wire Address</div>
+              <div class="field-val">214 North Tryon Street</div>
+            </div>
+            <span class="field-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="1"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>
+          </div>
+          <div class="field field-readonly">
+            <div class="field-info">
+              <div class="field-lbl">Branch</div>
+              <div class="field-val" style="font-size:11px;">Orlando – Narcoossee, FL 34771</div>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- WESTERN UNION / ZELLE -->
+    <div class="pay-card" data-d="200" onclick="toggleCard(this)">
+      <div class="card-head">
+        <div>
+          <div class="card-name">Western · Zelle</div>
+          <span class="card-tag inter">
+            <span class="lang-es">Internacional · USD</span>
+            <span class="lang-en">International · USD</span>
+          </span>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+        </div>
+      </div>
+      <div class="card-body"><div class="card-body-in">
+        <div class="card-fields">
+          <div class="field field-readonly">
+            <div class="field-info">
+              <div class="field-lbl"><span class="lang-es">Métodos disponibles</span><span class="lang-en">Available methods</span></div>
+              <div class="field-val">Western Union · Zelle</div>
+            </div>
+          </div>
+          <p class="field-note">
+            <span class="lang-es">Para recibir los datos de envío y el destinatario exacto, escríbenos por WhatsApp.</span>
+            <span class="lang-en">For recipient details and transfer instructions, please contact us via WhatsApp.</span>
+          </p>
+          <a class="card-cta" href="https://wa.me/573197900732?text=Hola%20FullFace%20Academy%2C%20quiero%20realizar%20mi%20pago%20por%20Western%20Union%20o%20Zelle.%20Por%20favor%20envíenme%20los%20datos%20del%20destinatario." target="_blank" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <span class="lang-es">Solicitar datos de pago</span>
+            <span class="lang-en">Request payment details</span>
+          </a>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- SQUARE / LINK -->
+    <div class="pay-card" data-d="300" onclick="toggleCard(this)">
+      <div class="card-head">
+        <div>
+          <div class="card-name">Square · Link</div>
+          <span class="card-tag link-p">
+            <span class="lang-es">Link de Pago</span>
+            <span class="lang-en">Payment Link</span>
+          </span>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+        </div>
+      </div>
+      <div class="card-body"><div class="card-body-in">
+        <div class="card-fields">
+          <div class="field field-readonly">
+            <div class="field-info">
+              <div class="field-lbl"><span class="lang-es">Acepta</span><span class="lang-en">Accepts</span></div>
+              <div class="field-val">Visa · Mastercard · Amex</div>
+            </div>
+          </div>
+          <div class="field field-readonly">
+            <div class="field-info">
+              <div class="field-lbl"><span class="lang-es">Moneda</span><span class="lang-en">Currency</span></div>
+              <div class="field-val">USD · Internacional</div>
+            </div>
+          </div>
+          <p class="field-note">
+            <span class="lang-es">Te enviamos el link personalizado directamente por WhatsApp.</span>
+            <span class="lang-en">We'll send you a personalized payment link via WhatsApp.</span>
+          </p>
+          <a class="card-cta" href="https://wa.me/573197900732?text=Hola%20FullFace%20Academy%2C%20quiero%20pagar%20mi%20inscripción%20con%20tarjeta%20internacional%20a%20través%20de%20Square.%20Por%20favor%20envíenme%20el%20link%20de%20pago." target="_blank" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+            <span class="lang-es">Solicitar link de pago</span>
+            <span class="lang-en">Request payment link</span>
+          </a>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Q&A -->
+<section id="qa" style="background:var(--cream2);">
+  <div class="section" style="padding-top:80px;padding-bottom:80px;">
+    <p class="sec-label" data-reveal>
+      <span class="lang-es">Resolvemos tus dudas</span>
+      <span class="lang-en">We answer your questions</span>
+    </p>
+    <h2 class="sec-title" data-reveal>
+      <span class="lang-es">Preguntas <em>frecuentes</em></span>
+      <span class="lang-en">Frequently <em>asked</em></span>
+    </h2>
+    <div class="sec-rule" data-reveal></div>
+
+    <div id="qa-list">
+      <div class="qa-item" data-d="0" onclick="toggleQA(this)">
+        <div class="qa-q">
+          <span class="qa-q-text lang-es">¿Puedo pagar en cuotas?</span>
+          <span class="qa-q-text lang-en">Can I pay in installments?</span>
+          <div class="qa-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg></div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <p class="qa-a-text lang-es">Sí. Con Square y los métodos internacionales puedes usar tu tarjeta de crédito y aplicar las cuotas directamente desde tu banco. Para Bancolombia, consulta con tu asesor los planes de pago disponibles.</p>
+          <p class="qa-a-text lang-en">Yes. With Square and international methods you can use your credit card and arrange installments through your bank. For Bancolombia (Colombia only), ask your advisor about available payment plans.</p>
+        </div></div>
+      </div>
+
+      <div class="qa-item" data-d="60" onclick="toggleQA(this)">
+        <div class="qa-q">
+          <span class="qa-q-text lang-es">¿Qué hago después de pagar?</span>
+          <span class="qa-q-text lang-en">What do I do after paying?</span>
+          <div class="qa-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg></div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <p class="qa-a-text lang-es">Envía el comprobante por WhatsApp a tu asesor. En menos de 24 horas recibirás la confirmación y acceso al programa. Para Bancolombia, avísanos <strong>antes</strong> de hacer la transferencia para confirmar cupos disponibles.</p>
+          <p class="qa-a-text lang-en">Send your receipt via WhatsApp to your advisor. Within 24 hours you'll receive confirmation and access to the program. For Bancolombia transfers, please notify us <strong>before</strong> paying to confirm spot availability.</p>
+        </div></div>
+      </div>
+
+      <div class="qa-item" data-d="120" onclick="toggleQA(this)">
+        <div class="qa-q">
+          <span class="qa-q-text lang-es">¿El pago internacional tiene cargos extra?</span>
+          <span class="qa-q-text lang-en">Are there extra charges for international payments?</span>
+          <div class="qa-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg></div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <p class="qa-a-text lang-es">De nuestra parte no hay cargos adicionales. Con Truist Bank la transferencia wire desde EE.UU. va directo. Los costos de tu banco emisor son independientes y varían según la institución.</p>
+          <p class="qa-a-text lang-en">We don't charge any additional fees. Truist Bank wire transfers from the US go direct. Your sending bank may charge their own wire fees, which vary by institution.</p>
+        </div></div>
+      </div>
+
+      <div class="qa-item" data-d="180" onclick="toggleQA(this)">
+        <div class="qa-q">
+          <span class="qa-q-text lang-es">¿Puedo pagar desde cualquier país?</span>
+          <span class="qa-q-text lang-en">Can I pay from any country?</span>
+          <div class="qa-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg></div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <p class="qa-a-text lang-es">Sí. Square acepta tarjetas de cualquier país del mundo. Truist Bank es ideal para transferencias desde EE.UU. Western Union funciona desde la mayoría de países. Escríbenos y te orientamos según tu ubicación.</p>
+          <p class="qa-a-text lang-en">Yes. Square accepts cards from any country. Truist Bank is ideal for transfers from the US. Western Union works from most countries. Contact us and we'll guide you based on your location.</p>
+        </div></div>
+      </div>
+
+      <div class="qa-item" data-d="240" onclick="toggleQA(this)">
+        <div class="qa-q">
+          <span class="qa-q-text lang-es">¿Tienen política de reembolso?</span>
+          <span class="qa-q-text lang-en">Do you have a refund policy?</span>
+          <div class="qa-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg></div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <p class="qa-a-text lang-es">Sí. Dentro de los primeros 7 días si el programa no ha iniciado, aplica reembolso completo. Una vez iniciado, se aplican condiciones especiales. Contáctanos para más información sobre tu caso.</p>
+          <p class="qa-a-text lang-en">Yes. Full refunds are available within the first 7 days if the program hasn't started. Special conditions apply once the program begins. Contact us for details specific to your situation.</p>
+        </div></div>
+      </div>
+
+      <div class="qa-item" data-d="300" onclick="toggleQA(this)">
+        <div class="qa-q">
+          <span class="qa-q-text lang-es">¿A quién contacto si hay un problema con el pago?</span>
+          <span class="qa-q-text lang-en">Who do I contact if there's a payment issue?</span>
+          <div class="qa-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg></div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <p class="qa-a-text lang-es">Escríbenos por WhatsApp con el botón flotante. Atendemos lunes a sábado de 8am a 7pm (hora Colombia). Escribe <strong>"PAGO"</strong> en tu primer mensaje para atención prioritaria.</p>
+          <p class="qa-a-text lang-en">Write to us via the WhatsApp button. We're available Monday–Saturday 8am–7pm (Colombia time). Type <strong>"PAYMENT"</strong> in your first message for priority service.</p>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- QUIÉNES SOMOS -->
+<section id="somos" style="background:#1a0f0f;padding:72px 0 0;">
+  <div style="max-width:720px;margin:0 auto;padding:0 24px 52px;text-align:center;">
+    <p style="font-size:8px;letter-spacing:7px;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.25);margin-bottom:14px;" data-reveal>
+      <span class="lang-es">Conoce quiénes somos</span>
+      <span class="lang-en">Meet our team</span>
+    </p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,56px);font-weight:300;color:#fff;line-height:1;margin-bottom:0;" data-reveal>
+      <span class="lang-es">Fullface <em style="font-style:italic;color:rgba(255,255,255,.45);">Academy</em></span>
+      <span class="lang-en">Fullface <em style="font-style:italic;color:rgba(255,255,255,.45);">Academy</em></span>
+    </h2>
+  </div>
+  <video
+    src="Media/intro-ff-academy.mp4"
+    controls
+    preload="metadata"
+    playsinline
+    style="width:100%;display:block;max-height:520px;object-fit:cover;background:#1a0f0f;">
+  </video>
+</section>
+
+<!-- FOOTER -->
+<footer>Fullface Academy &ensp;·&ensp; fullface.co &ensp;·&ensp; Medellín, Colombia</footer>
+
+<!-- WA FLOAT -->
+<div class="wa-pulse"></div>
+<a href="https://wa.me/573197900732?text=Hola%20FullFace%20Academy%2C%20necesito%20ayuda%20con%20el%20pago"
+   target="_blank" class="wa-wrap" aria-label="WhatsApp">
+  <div class="wa-tip">
+    <span class="lang-es">Asesor disponible</span>
+    <span class="lang-en">Advisor available</span>
+  </div>
+  <div class="wa-btn">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </div>
+</a>
+
+<script>
+// Nav shadow on scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('shadow', window.scrollY > 40);
+  // Active pill tracking
+  const pagosEl = document.getElementById('pagos');
+  const qaEl    = document.getElementById('qa');
+  const pillPagos = document.getElementById('nav-pagos');
+  const pillQa    = document.getElementById('nav-qa');
+  if (!pagosEl || !pillPagos) return;
+  const qaTop = qaEl ? qaEl.getBoundingClientRect().top : Infinity;
+  if (qaTop < 120) {
+    pillPagos.classList.remove('active');
+    pillQa.classList.add('active');
+  } else {
+    pillPagos.classList.add('active');
+    pillQa.classList.remove('active');
+  }
+}, {passive:true});
+
+// Intersection observer
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const d = parseInt(e.target.dataset.d || 0);
+    const isCard = e.target.classList.contains('pay-card');
+    const isQA   = e.target.classList.contains('qa-item');
+    setTimeout(() => {
+      if (isCard || isQA) e.target.classList.add('visible');
+      else e.target.classList.add('on');
+    }, d);
+    io.unobserve(e.target);
+  });
+}, {threshold: 0.08});
+
+document.querySelectorAll('[data-reveal], .pay-card, .qa-item').forEach((el,i) => {
+  if (el.hasAttribute('data-reveal')) el.dataset.d = i * 80;
+  io.observe(el);
+});
+
+// Toggle payment card (one at a time)
+function toggleCard(card) {
+  const wasOpen = card.classList.contains('open');
+  document.querySelectorAll('.pay-card.open').forEach(c => c.classList.remove('open'));
+  if (!wasOpen) card.classList.add('open');
+}
+
+// Toggle Q&A
+function toggleQA(item) {
+  item.classList.toggle('open');
+}
+
+// Copy to clipboard
+const checkSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="12" height="12"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const copySVG  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="1"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
+function copy(e, row, text) {
+  e.stopPropagation();
+  navigator.clipboard.writeText(text).then(() => {
+    const ic = row.querySelector('.field-copy');
+    if (!ic) return;
+    row.classList.add('copied');
+    ic.innerHTML = checkSVG;
+    setTimeout(() => { row.classList.remove('copied'); ic.innerHTML = copySVG; }, 1800);
+  });
+}
+
+// Language toggle
+let isEN = false;
+function toggleLang() {
+  isEN = !isEN;
+  document.body.classList.toggle('en', isEN);
+  document.getElementById('lang-btn').textContent = isEN ? 'ES' : 'EN';
+}
+</script>
+</body>
+</html>
